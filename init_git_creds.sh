@@ -1,4 +1,4 @@
-!#/usr/bin/bash
+#!/usr/bin/bash
 
 USER=wqp7qy@virginia.edu
 NAME=abrish2049
