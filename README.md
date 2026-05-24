@@ -17,7 +17,7 @@ cd 2508_DS5111_wqp7qy
 ### 2. Initialize the VM
 
 ```bash
-bash init.sh
+bash scripts/init.sh
 ```
 
 This updates system packages and installs `make`, `python-venv`, and `tree`.
@@ -29,7 +29,7 @@ This updates system packages and installs `make`, `python-venv`, and `tree`.
 ### 3. Configure git credentials
 
 ```bash
-bash init_git_creds.sh
+bash scripts/init_git_creds.sh
 ```
 
 This sets your git user email and name globally.
