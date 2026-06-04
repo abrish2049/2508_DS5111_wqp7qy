@@ -20,18 +20,18 @@ def is_valid_youtube_id(youtube_id):
         return True
     return False
 
-# Read from stdin line by line
-try:
-    for line in sys.stdin:
-        # Strip char
-        youtube_id = line.strip()
-        # Skip empty
-        if youtube_id == '':
-            continue
-        if is_valid_youtube_id(youtube_id):
-            print(youtube_id)
-        else:
-            logging.error(f"Invalid YouTube ID: '{youtube_id}'")
-# added an interupt , instead of a trace error
-except KeyboardInterrupt:
-    sys.exit(0)
+def main():
+    try:
+        for line in sys.stdin:
+            youtube_id = line.strip()
+            if youtube_id == '':
+                continue
+            if is_valid_youtube_id(youtube_id):
+                print(youtube_id)
+            else:
+                logging.error(f"Invalid YouTube ID: '{youtube_id}'")
+    except KeyboardInterrupt:
+        sys.exit(0)
+
+if __name__ == "__main__":
+    main()
