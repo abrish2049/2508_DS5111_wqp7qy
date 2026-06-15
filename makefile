@@ -1,14 +1,21 @@
 default:
 	@cat makefile
+
 env:
 	python3 -m venv env; . env/bin/activate; pip install --upgrade pip
-update:  env
+
+update: env
 	. env/bin/activate; pip install -r requirements.txt
+
 setup: update
 	. env/bin/activate; pylint --generate-rcfile >> pylintrc
 
+pipeline/logs:
+	mkdir -p pipeline/logs
+
 lint:
 	. env/bin/activate; pylint bin/clean_ids.py
+	. env/bin/activate; pylint bin/extract_transcripts.py
 
-test: lint
+test: pipeline/logs lint
 	. env/bin/activate; pytest -vv tests
