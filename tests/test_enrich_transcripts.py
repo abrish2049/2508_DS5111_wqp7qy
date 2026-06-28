@@ -33,7 +33,7 @@ def test_enrich_transcripts_streaming_pipeline(monkeypatch, capsys):
     }
     mock_stdin = io.StringIO(json.dumps(mock_input_row) + "\n")
     monkeypatch.setattr(sys, "stdin", mock_stdin)
-
+    monkeypatch.setenv("GEMINI_API_KEY", "fake-key-for-testing")
     main()
 
     captured = capsys.readouterr()
