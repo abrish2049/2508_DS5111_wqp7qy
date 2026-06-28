@@ -15,15 +15,7 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-# TODO 1: validate key and init client
-api_key = os.getenv("GEMINI_API_KEY")
-if not api_key:
-    logging.critical("GEMINI_API_KEY is not set. Aborting pipeline.")
-    sys.exit(1)
-
-client = genai.Client(api_key=api_key)
-
-# TODO 2: schema contract
+# TODO 2: schema contract (module-level is fine, no side effects)
 response_schema = types.Schema(
     type=types.Type.OBJECT,
     properties={
@@ -48,6 +40,14 @@ generate_config = types.GenerateContentConfig(
 
 
 def main():
+    # TODO 1: validate key and init client inside main so imports don't trigger exit
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        logging.critical("GEMINI_API_KEY is not set. Aborting pipeline.")
+        sys.exit(1)
+
+    client = genai.Client(api_key=api_key)
+
     logging.info("Pipeline Step 2B (LLM Enrichment) started.")
 
     for line in sys.stdin:
