@@ -2,7 +2,7 @@ import sys
 import io
 import json
 import pytest
-from bin.enrich_transcripts import main
+from bin.enrich_transcripts import main, MockLLMStrategy, EnrichmentEngine
 
 
 class MockGeminiResponse:
@@ -34,7 +34,7 @@ def test_enrich_transcripts_streaming_pipeline(monkeypatch, capsys):
     mock_stdin = io.StringIO(json.dumps(mock_input_row) + "\n")
     monkeypatch.setattr(sys, "stdin", mock_stdin)
     monkeypatch.setenv("GEMINI_API_KEY", "fake-key-for-testing")
-    main()
+    main([])
 
     captured = capsys.readouterr()
     stdout_lines = captured.out.strip().split("\n")
@@ -43,3 +43,45 @@ def test_enrich_transcripts_streaming_pipeline(monkeypatch, capsys):
     parsed_output = json.loads(stdout_lines[0])
     assert parsed_output["video_id"] == "ds5111_v001"
     assert "mock frameworks" in parsed_output["tech_terms"]
+
+def test_mock_strategy_enrich_returns_correct_dict():
+    fixed = {
+        "video_id": "",
+        "cleaned_text": "mock cleaned text",
+        "tech_terms": ["mock term"],
+        "book_names": []
+    }
+    strategy = MockLLMStrategy(fixed_response=fixed)
+    record = {"video_id": "ds5111_v001", "raw_text": "some raw text"}
+    result = strategy.enrich(record)
+
+    assert result["video_id"] == "ds5111_v001"
+    assert result["cleaned_text"] == "mock cleaned text"
+    assert result["tech_terms"] == ["mock term"]
+    assert result["book_names"] == []
+
+def test_enrichment_engine_streams_output(monkeypatch, capsys):
+    fixed = {
+        "video_id": "",
+        "cleaned_text": "mock cleaned text",
+        "tech_terms": ["mock term"],
+        "book_names": []
+    }
+    strategy = MockLLMStrategy(fixed_response=fixed)
+    engine = EnrichmentEngine(strategy)
+
+    mock_input = {"video_id": "ds5111_v001", "raw_text": "some raw text"}
+    mock_stdin = io.StringIO(json.dumps(mock_input) + "\n")
+    monkeypatch.setattr(sys, "stdin", mock_stdin)
+
+    engine.run_stream()
+
+    captured = capsys.readouterr()
+    stdout_lines = captured.out.strip().split("\n")
+
+    assert len(stdout_lines) == 1
+    parsed = json.loads(stdout_lines[0])
+    assert parsed["video_id"] == "ds5111_v001"
+    assert parsed["cleaned_text"] == "mock cleaned text"
+    assert parsed["tech_terms"] == ["mock term"]
+    assert parsed["book_names"] == []
