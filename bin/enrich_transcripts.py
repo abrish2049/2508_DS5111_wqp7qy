@@ -22,7 +22,7 @@ logging.basicConfig(
 # =====================================================================
 # 1. THE CONTRACT (Interface)
 # =====================================================================
-class LLMStrategy(ABC):
+class LLMStrategy(ABC):  # pylint: disable=too-few-public-methods
     """Abstract base class defining the enrichment strategy contract."""
 
     @abstractmethod
@@ -33,7 +33,7 @@ class LLMStrategy(ABC):
 # =====================================================================
 # 2. MOCK STRATEGY (for testing without live API)
 # =====================================================================
-class MockLLMStrategy(LLMStrategy):
+class MockLLMStrategy(LLMStrategy):  # pylint: disable=too-few-public-methods
     """Returns a deterministic fake response for testing."""
 
     def __init__(self, fixed_response: dict):
@@ -47,7 +47,7 @@ class MockLLMStrategy(LLMStrategy):
 # =====================================================================
 # 3. ENRICHMENT ENGINE (Invariant pipeline orchestrator)
 # =====================================================================
-class EnrichmentEngine:
+class EnrichmentEngine:  # pylint: disable=too-few-public-methods
     """Streams JSONL from stdin through the injected LLM strategy."""
 
     def __init__(self, strategy: LLMStrategy):
@@ -74,7 +74,11 @@ class EnrichmentEngine:
                 logging.error("Enrichment failed for record: %s", e)
                 continue
 
-class GeminiStrategy(LLMStrategy):
+
+# =====================================================================
+# 4. GEMINI STRATEGY (Production LLM implementation)
+# =====================================================================
+class GeminiStrategy(LLMStrategy):  # pylint: disable=too-few-public-methods
     """Concrete LLM strategy that calls the Gemini API to enrich transcripts."""
 
     def __init__(self, client):
@@ -118,13 +122,18 @@ class GeminiStrategy(LLMStrategy):
         )
         return json.loads(response.text)
 
+
 # =====================================================================
-# 4. COMPOSITION ROOT
+# 5. COMPOSITION ROOT
 # =====================================================================
 def main(argv=None):
     """Parses CLI args, selects strategy, and runs the enrichment engine."""
     parser = argparse.ArgumentParser(description="Multi-Source Transcript Enrichment Node.")
-    parser.add_argument("--mock", action="store_true", help="Run with mock strategy, no API key needed.")
+    parser.add_argument(
+        "--mock",
+        action="store_true",
+        help="Run with mock strategy, no API key needed."
+    )
     args = parser.parse_args(argv)
 
     logging.info("Pipeline Step 2B (LLM Enrichment) started.")
