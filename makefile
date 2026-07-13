@@ -27,5 +27,5 @@ test_enrich:
 
 .PHONY: load
 load:
-	@echo "Initiating Cloud Data Warehouse Synchronizer Node..."
+	@echo "Snowflake thing...."
 	cat data/enriched_transcripts.jsonl | $(PYTHON) bin/load_snowflake.py
