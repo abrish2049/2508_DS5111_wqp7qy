@@ -1,10 +1,16 @@
-# File location: bin/load_snowflake.py
+"""Stream enriched JSON Lines records from stdin into a Snowflake VARIANT table."""
+
 import sys
 import os
 import json
 import logging
 import snowflake.connector
 from dotenv import load_dotenv  # <-- Added to support standard .env loading
+
+# pylint: disable=fixme, broad-exception-caught
+# The markers below are intentional lab checkpoints, not real technical debt.
+# Broad Exception catches are intentional here too: this is a pipeline consumer
+# node that must log and exit cleanly rather than crash on any one bad record.
 
 # Establish clean centralized diagnostic logging metrics output footprint
 logging.basicConfig(
@@ -15,6 +21,7 @@ logging.basicConfig(
 
 
 def main():
+    """Read enriched JSON Lines from stdin and load them into Snowflake."""
     # Initialize the environment variables from the local .env file
     load_dotenv()  # <-- Added to ensure os.getenv() does not return None
     logging.info("Pipeline Step 3 (Snowflake Loader Node) initialized.")
@@ -29,7 +36,9 @@ def main():
     sf_password = os.getenv('SF_PASSWORD')
 
     if not sf_user or not sf_password:
-        logging.critical("Missing critical Snowflake runtime credential bindings. Ingestion aborted.")
+        logging.critical(
+            "Missing critical Snowflake runtime credential bindings. Ingestion aborted."
+        )
         sys.exit(1)
 
     try:
@@ -47,7 +56,7 @@ def main():
         cs = ctx.cursor()
         ### TODO 1 CODE END HERE
     except Exception as e:
-        logging.critical(f"Snowflake Authorization Context Handshake Failed: {str(e)}")
+        logging.critical("Snowflake Authorization Context Handshake Failed: %s", str(e))
         sys.exit(1)
 
     # -------------------------------------------------------------------------
@@ -67,7 +76,7 @@ def main():
         """)
         ### TODO 2 CODE END
     except Exception as e:
-        logging.error(f"Failed to execute target structural validation DDL: {str(e)}")
+        logging.error("Failed to execute target structural validation DDL: %s", str(e))
         cs.close()
         ctx.close()
         sys.exit(1)
@@ -99,9 +108,12 @@ def main():
             ### TODO 3 CODE END
 
             # Left intact from your original template design:
-            logging.info(f"Loaded entry token item target: [{json_data.get('video_id', 'UNKNOWN')}] safely to warehouse.")
+            logging.info(
+                "Loaded entry token item target: [%s] safely to warehouse.",
+                json_data.get('video_id', 'UNKNOWN'),
+            )
         except Exception as e:
-            logging.error(f"Skipping corrupt pipeline payload stream element: {str(e)}")
+            logging.error("Skipping corrupt pipeline payload stream element: %s", str(e))
 
     # -------------------------------------------------------------------------
     # TODO 4: Defensive Resource Reclamation Lifecycle [RESOLVED]
