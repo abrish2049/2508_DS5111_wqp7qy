@@ -224,4 +224,4 @@ __marimo__/
 env/
 **/*.log
 .pytest_cache/
-claudeuvacompile.py
+claudeuvacompile.py!lib/
