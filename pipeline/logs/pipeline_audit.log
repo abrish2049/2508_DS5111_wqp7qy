@@ -1,0 +1,57 @@
+2026-06-21 17:45:20,757 - INFO - Pipeline Step 2B (LLM Enrichment) started.
+2026-06-21 17:45:20,758 - INFO - Enriching transcript for video: ds5111_v001
+2026-06-21 17:45:20,758 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:45:20,963 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-06-21 17:45:20,964 - ERROR - Gemini API call failed for video ds5111_v001: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}
+2026-06-21 17:45:20,964 - INFO - Pipeline Step 2B (LLM Enrichment) finished.
+2026-06-21 17:46:21,238 - INFO - Pipeline Step 2B (LLM Enrichment) started.
+2026-06-21 17:46:21,239 - INFO - Enriching transcript for video: ds5111_v001
+2026-06-21 17:46:21,239 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:46:21,425 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-06-21 17:46:21,425 - ERROR - Gemini API call failed for video ds5111_v001: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}
+2026-06-21 17:46:21,425 - INFO - Pipeline Step 2B (LLM Enrichment) finished.
+2026-06-21 17:47:20,384 - INFO - Pipeline Step 2B (LLM Enrichment) started.
+2026-06-21 17:47:20,384 - INFO - Enriching transcript for video: ds5111_v001
+2026-06-21 17:47:20,385 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:47:20,587 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent "HTTP/1.1 404 Not Found"
+2026-06-21 17:47:20,588 - ERROR - Gemini API call failed for video ds5111_v001: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash-lite is no longer available. Please update your code to use a newer model for the latest features and improvements.', 'status': 'NOT_FOUND'}}
+2026-06-21 17:47:20,588 - INFO - Pipeline Step 2B (LLM Enrichment) finished.
+2026-06-21 17:48:05,431 - INFO - Pipeline Step 2B (LLM Enrichment) started.
+2026-06-21 17:48:05,431 - INFO - Enriching transcript for video: ds5111_v001
+2026-06-21 17:48:05,431 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:48:06,784 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-06-21 17:48:06,785 - INFO - Pipeline Step 2B (LLM Enrichment) finished.
+2026-06-21 17:48:20,927 - INFO - Pipeline Step 2B (LLM Enrichment) started.
+2026-06-21 17:48:20,927 - INFO - Enriching transcript for video: ds5111_v001
+2026-06-21 17:48:20,929 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:48:22,991 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-06-21 17:48:22,992 - ERROR - Gemini API call failed for video ds5111_v001: [Errno 32] Broken pipe
+2026-06-21 17:48:22,992 - INFO - Enriching transcript for video: ds5111_v002
+2026-06-21 17:48:22,992 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:48:25,235 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-06-21 17:48:25,236 - ERROR - Gemini API call failed for video ds5111_v002: [Errno 32] Broken pipe
+2026-06-21 17:48:25,236 - INFO - Pipeline Step 2B (LLM Enrichment) finished.
+2026-06-21 17:49:09,696 - INFO - Pipeline Step 2B (LLM Enrichment) started.
+2026-06-21 17:49:09,696 - INFO - Enriching transcript for video: ds5111_v001
+2026-06-21 17:49:09,696 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:49:12,380 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-06-21 17:49:12,381 - INFO - Enriching transcript for video: ds5111_v002
+2026-06-21 17:49:12,382 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:49:14,177 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-06-21 17:49:14,179 - INFO - Pipeline Step 2B (LLM Enrichment) finished.
+2026-06-21 17:49:37,137 - INFO - Pipeline Step 2B (LLM Enrichment) started.
+2026-06-21 17:49:37,137 - INFO - Enriching transcript for video: ds5111_v001
+2026-06-21 17:49:37,138 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:49:38,965 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-06-21 17:49:38,967 - INFO - Enriching transcript for video: ds5111_v002
+2026-06-21 17:49:38,967 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:49:41,429 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-06-21 17:49:41,430 - INFO - Pipeline Step 2B (LLM Enrichment) finished.
+2026-06-21 17:52:12,684 - INFO - Pipeline Step 2B (LLM Enrichment) started.
+2026-06-21 17:52:12,684 - INFO - Enriching transcript for video: ds5111_v001
+2026-06-21 17:52:12,685 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:52:15,074 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-06-21 17:52:15,075 - INFO - Enriching transcript for video: ds5111_v002
+2026-06-21 17:52:15,075 - INFO - AFC is enabled with max remote calls: 10.
+2026-06-21 17:52:16,757 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-06-21 17:52:16,758 - INFO - Pipeline Step 2B (LLM Enrichment) finished.

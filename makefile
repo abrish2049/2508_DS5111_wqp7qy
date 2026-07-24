@@ -16,6 +16,10 @@ pipeline/logs:
 lint:
 	. env/bin/activate; pylint bin/clean_ids.py
 	. env/bin/activate; pylint bin/extract_transcripts.py
+	. env/bin/activate; pylint bin/enrich_transcripts.py
 
 test: pipeline/logs lint
 	. env/bin/activate; pytest -vv tests
+  
+test_enrich:
+	@. env/bin/activate && cat mock_transcripts.jsonl | python -u bin/enrich_transcripts.py --mock | python bin/validate_schema.py
