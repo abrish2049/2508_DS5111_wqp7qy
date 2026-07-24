@@ -1,21 +1,20 @@
+"""Tests for the enrich_transcripts pipeline module."""
 import sys
 import io
 import json
-import pytest
 from bin.enrich_transcripts import main, MockLLMStrategy, EnrichmentEngine
 
 
-class MockGeminiResponse:
+class MockGeminiResponse:  # pylint: disable=too-few-public-methods
+    """Mimics the Gemini SDK response object for testing."""
+
     def __init__(self, text_payload):
         self.text = text_payload
 
 
 def test_enrich_transcripts_streaming_pipeline(monkeypatch, capsys):
-    """
-    Verifies that main() reads mock lines from stdin, calls the Gemini client structure,
-    and streams verified JSON objects out to stdout without making live API network requests.
-    """
-    def mock_generate_content(self, model, contents, config=None):
+    """Verifies main() streams enriched JSON to stdout without live API calls."""
+    def mock_generate_content(self, model, contents, config=None):  # pylint: disable=unused-argument
         mock_data = {
             "video_id": "ds5111_v001",
             "cleaned_text": "Welcome to class. Today we are testing mock frameworks.",
@@ -24,7 +23,7 @@ def test_enrich_transcripts_streaming_pipeline(monkeypatch, capsys):
         }
         return MockGeminiResponse(json.dumps(mock_data))
 
-    from google.genai.models import Models
+    from google.genai.models import Models  # pylint: disable=import-outside-toplevel
     monkeypatch.setattr(Models, "generate_content", mock_generate_content)
 
     mock_input_row = {
@@ -44,7 +43,9 @@ def test_enrich_transcripts_streaming_pipeline(monkeypatch, capsys):
     assert parsed_output["video_id"] == "ds5111_v001"
     assert "mock frameworks" in parsed_output["tech_terms"]
 
+
 def test_mock_strategy_enrich_returns_correct_dict():
+    """Verifies MockLLMStrategy.enrich() injects video_id and returns correct fields."""
     fixed = {
         "video_id": "",
         "cleaned_text": "mock cleaned text",
@@ -60,7 +61,9 @@ def test_mock_strategy_enrich_returns_correct_dict():
     assert result["tech_terms"] == ["mock term"]
     assert result["book_names"] == []
 
+
 def test_enrichment_engine_streams_output(monkeypatch, capsys):
+    """Verifies EnrichmentEngine streams enriched records to stdout using mock strategy."""
     fixed = {
         "video_id": "",
         "cleaned_text": "mock cleaned text",

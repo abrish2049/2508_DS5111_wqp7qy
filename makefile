@@ -1,25 +1,26 @@
+ENV = env
+PYTHON = $(ENV)/bin/python3
+
 default:
 	@cat makefile
 
 env:
-	python3 -m venv env; . env/bin/activate; pip install --upgrade pip
+	python3 -m venv $(ENV); $(ENV)/bin/pip install --upgrade pip
 
 update: env
-	. env/bin/activate; pip install -r requirements.txt
-
-#setup: update
-#	. env/bin/activate; pylint --generate-rcfile >> pylintrc
+	$(ENV)/bin/pip install -r requirements.txt
 
 pipeline/logs:
 	mkdir -p pipeline/logs
 
 lint:
-	. env/bin/activate; pylint bin/clean_ids.py
-	. env/bin/activate; pylint bin/extract_transcripts.py
-	. env/bin/activate; pylint bin/enrich_transcripts.py
+	python -m pylint bin/ tests/ --ignore=validate_schema.py
 
-test: pipeline/logs lint
-	. env/bin/activate; pytest -vv tests
-  
+test: pipeline/logs
+	python -m pytest -vv tests
+
+run:
+	@echo "Usage: cat video_ids.txt | python bin/extract_transcripts.py | python bin/enrich_transcripts.py"
+
 test_enrich:
-	@. env/bin/activate && cat mock_transcripts.jsonl | python -u bin/enrich_transcripts.py --mock | python bin/validate_schema.py
+	@$(PYTHON) -u bin/enrich_transcripts.py --mock < mock_transcripts.jsonl | $(PYTHON) bin/validate_schema.py
