@@ -1,0 +1,14 @@
+-- -----------------------------------------------------------------------------
+-- 02_dim_videos.sql
+-- Dimension table: video-level text metrics and array sizes
+-- -----------------------------------------------------------------------------
+
+CREATE OR REPLACE TABLE DIM_VIDEOS AS
+SELECT
+    VIDEO_ID,
+    CLEANED_TEXT,
+    ARRAY_SIZE(TECH_TERMS_ARRAY)        AS TECH_TERM_COUNT,
+    ARRAY_SIZE(BOOK_NAMES_ARRAY)        AS BOOK_NAME_COUNT,
+    ARRAY_SIZE(SPLIT(CLEANED_TEXT, ' ')) AS WORD_COUNT,
+    INSERTED_AT                         AS PROCESSED_AT
+FROM STG_YOUTUBE_TRANSCRIPTS;
