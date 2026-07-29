@@ -24,3 +24,8 @@ run:
 
 test_enrich:
 	@$(PYTHON) -u bin/enrich_transcripts.py --mock < mock_transcripts.jsonl | $(PYTHON) bin/validate_schema.py
+
+.PHONY: load
+load:
+	@echo "Snowflake thing...."
+	cat data/enriched_transcripts.jsonl | $(PYTHON) bin/load_snowflake.py
