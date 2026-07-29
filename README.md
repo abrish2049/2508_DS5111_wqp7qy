@@ -71,3 +71,38 @@ If everything is set up right you should see:
 24 passed, 1 skipped, 1 xfailed
 Your code has been rated at 10.00/10
 ```
+
+---
+
+## Running with Docker
+
+Build the image locally, or pull the published one from Docker Hub (`abrish2049/ds5111-pipeline:latest`).
+
+```bash
+make docker-build
+```
+
+### Smoke test (no credentials needed)
+Validates ID filtering only:
+```bash
+make docker-smoke
+```
+
+### Full pipeline (requires `.env`)
+Runs clean → extract → enrich → load into Snowflake:
+```bash
+make docker-run
+```
+
+### Push to Docker Hub
+```bash
+make docker-push
+```
+
+### Clean-room test
+Removes local containers/image, forcing a fresh pull from Docker Hub on next run:
+```bash
+make docker-clean
+make docker-run
+```
+
