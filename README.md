@@ -1,4 +1,4 @@
-# 2508_DS5111_wqp7qy
+# 2508_DS5111_<UVAID>
 
 A data engineering pipeline for DS5111 that pulls YouTube transcripts, runs them through a Gemini LLM to extract useful metadata, lands everything in Snowflake, and transforms it into clean models using dbt.
 
@@ -15,8 +15,8 @@ You give it YouTube video IDs, it fetches the transcripts, and passes them throu
 ### 1. Clone the repo
 
 ```bash
-git clone git@github.com:abrish2049/2508_DS5111_wqp7qy.git
-cd 2508_DS5111_wqp7qy
+git clone git@github.com:abrish2049/2508_DS5111_<UVAID>.git
+cd 2508_DS5111_<UVAID>
 ```
 
 ### 2. Set up the VM
@@ -143,7 +143,7 @@ All of this runs from a Snowflake worksheet against the Git integration, no loca
 ```sql
 USE ROLE DS5111_STUDENT_ROLE;
 USE DATABASE DS5111_DB;
-USE SCHEMA WQP7QY;
+USE SCHEMA <UVAID>;
 
 -- pull the latest code from GitHub
 ALTER GIT REPOSITORY DS5111_GIT_STAGE FETCH;
